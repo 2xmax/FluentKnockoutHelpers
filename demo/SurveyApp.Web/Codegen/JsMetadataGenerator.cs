@@ -1,22 +1,21 @@
-using System.Web.Http;
+﻿using System.Web.Http;
 using FluentKnockoutHelpers.Core;
 using FluentKnockoutHelpers.Core.TypeMetadata;
 using Newtonsoft.Json;
 
-namespace SurveyApp.Web.App_Start
+namespace SurveyApp.Web.Codegen
 {
-    public static class FluentKnockoutHelpersConfig
+    public class JsMetadataGenerator
     {
-        public static void Configure()
+        public static string Generate()
         {
             GlobalSettings.JsonSerializer = new JsonDotNetSerializer();
-            TypeMetadataHelper.BuildForAllEndpointSubclassesOf<ApiController>();
+            var helper = new TypeMetadataHelper();
+            helper.BuildForAllEndpointSubclassesOf<ApiController>();
+            return helper.GetMetadata();
         }
     }
 
-    /// <summary>
-    /// Use JSON.NET for serialization for FluentKnockoutHelpers
-    /// </summary>
     public class JsonDotNetSerializer : IJsonSerializer
     {
         public string ToJsonString(object toSerialize)

@@ -71,7 +71,7 @@ define(function () {
             });
             
             if (!typeMetadata)
-                throw "Type " + typeName + " could not be found in typeMetadata. Is it not defined?";
+                throw "Type " + typeNameContains + " could not be found in typeMetadata. Is it not defined?";
 
             return typeMetadata;
         },

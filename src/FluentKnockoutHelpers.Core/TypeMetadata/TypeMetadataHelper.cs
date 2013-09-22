@@ -10,9 +10,9 @@ using Microsoft.CSharp;
 
 namespace FluentKnockoutHelpers.Core.TypeMetadata
 {
-    public static class TypeMetadataHelper
+    public class TypeMetadataHelper
     {
-        private static string _metadataModule;
+        private string _metadataModule;
 
         /// <summary>
         /// <para>Automatically builds Metadata for all complex types returned by controller actions of TControllerBaseType in the calling assembly</para>
@@ -20,17 +20,12 @@ namespace FluentKnockoutHelpers.Core.TypeMetadata
         /// </summary>
         /// <typeparam name="TControllerBaseType">The base type of controllers to scan</typeparam>
         /// <returns>A builder to add or remove additional types</returns>
-        public static void BuildForAllEndpointSubclassesOf<TControllerBaseType>()
+        public void BuildForAllEndpointSubclassesOf<TControllerBaseType>()
         {
             BuildForAllEndpointSubclassesOf<TControllerBaseType>(null, Assembly.GetCallingAssembly());
         }
 
-        public static void BuildForAllEndpointSubclassesOf<TControllerBaseType>(Action<TypeMetadataBuilder> additionalConfiguration)
-        {
-            BuildForAllEndpointSubclassesOf<TControllerBaseType>(additionalConfiguration, Assembly.GetCallingAssembly());
-        }
-
-        private static void BuildForAllEndpointSubclassesOf<TControllerBaseType>(Action<TypeMetadataBuilder> additionalConfiguration, Assembly endpointContainingAssembly)
+        private void BuildForAllEndpointSubclassesOf<TControllerBaseType>(Action<TypeMetadataBuilder> additionalConfiguration, Assembly endpointContainingAssembly)
         {
             ValidateSetup();
             var metadataModule = new TypeMetadataBuilder(typeof(TControllerBaseType), endpointContainingAssembly);
@@ -40,31 +35,20 @@ namespace FluentKnockoutHelpers.Core.TypeMetadata
             BuildMetadata(metadataModule);
         }
 
-        public static void BuildForConfiguration(Action<TypeMetadataBuilder> configuration)
-        {
-            if(configuration == null)
-                throw new ArgumentNullException("configuration", "You must specify a configuration or use a different overload");
-
-            ValidateSetup();
-            var metadataModule = new TypeMetadataBuilder();
-            configuration(metadataModule);
-            BuildMetadata(metadataModule);
-        }
-
-        private static void ValidateSetup()
+        private void ValidateSetup()
         {
             if (_metadataModule != null)
                 throw new InvalidOperationException("TypeMetadata.Build must only be called once per AppDomain in Application_Start");
         }
 
-        private static void BuildMetadata(TypeMetadataBuilder builder)
+        private void BuildMetadata(TypeMetadataBuilder builder)
         {
             _metadataModule = GlobalSettings.JsonSerializer.ToJsonString(builder.Build());
         }
 
-        public static IHtmlString EmitTypeMetadataArray()
+        public string GetMetadata()
         {
-            return new HtmlString(_metadataModule);
+            return _metadataModule;
         }
     }
 

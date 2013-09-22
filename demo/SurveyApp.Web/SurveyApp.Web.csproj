@@ -145,7 +145,7 @@
     <Compile Include="App_Start\NinjectConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="ApiControllers\SurveyController.cs" />
-    <Compile Include="App_Start\FluentKnockoutHelpersConfig.cs" />
+    <Compile Include="Codegen\JsMetadataGenerator.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -202,6 +202,15 @@
     <Content Include="App\views\foodGroups.cshtml" />
     <Content Include="App\views\shell.cshtml" />
     <Content Include="App\views\surveys.cshtml" />
+    <Content Include="Codegen\JsMetadata.js">
+      <DependentUpon>JsMetadata.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Content>
+    <Content Include="Codegen\JsMetadata.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>JsMetadata.js</LastGenOutput>
+    </Content>
     <Content Include="Content\app\app.css" />
     <Content Include="Content\app\durandal.css" />
     <Content Include="Content\base\font-awesome-ie7.min.css" />
@@ -299,6 +308,9 @@
       <Project>{ac9e8504-e53c-481d-bb8c-11ebdb13421a}</Project>
       <Name>SurveyApp.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -28,8 +28,6 @@ namespace SurveyApp.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             JsonSerializerConfig.Configure(GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings);
-
-            FluentKnockoutHelpersConfig.Configure();
         }
     }
 }
