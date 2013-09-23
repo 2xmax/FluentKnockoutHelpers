@@ -1,3 +1,9 @@
+#Fork overview
+This fork demostrates proof of concept of generation static js metadata from data annotations by T4.
+
+------
+
+
 #Fluent Knockout Helpers Overview
 ##Live Demo
 - __Live demo__ of the latest demo source is always running here: http://durandaldemo.apphb.com/
